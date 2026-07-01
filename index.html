@@ -13,12 +13,11 @@
     <link rel="apple-touch-icon" href="icons/icon-192.png">
     <title>T$ Finance: Debt & Expense</title>
     
-    <!-- 🐛 ERUDA DEBUG - PRODUCTION-DA SİLİNDİ
+    <!-- 🐛 ERUDA DEBUG - Play Store submit-dən əvvəl SİLƏCƏYİK -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>
         try { eruda.init(); console.log('🐛 Eruda Debug Console aktiv'); } catch(e) {}
     </script>
-    -->
     
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -50,22 +49,8 @@
         .lang-currency select {
             color: white !important;
         }
-        /* Dark mode-da daha aydın - amma yenə də header AĞ */
-        @media (prefers-color-scheme: dark) {
-            input, textarea {
-                color: #f1f5f9 !important;
-            }
-            input::placeholder, textarea::placeholder {
-                color: #94a3b8 !important;
-            }
-            /* Modal select-lər - amma header yox */
-            select:not(.header select):not(.header-top select):not(.lang-currency select) {
-                color: #f1f5f9 !important;
-            }
-            .header select, .header-top select, .lang-currency select {
-                color: white !important;
-            }
-        }
+        /* 🛡️ V3 FIX: prefers-color-scheme SİLİNDİ - yalnız body.dark class ilə */
+        /* Sistem dark mode artıq tətbiqi DƏYIŞMIR (light mode-da qalır) */
         body.dark input, body.dark textarea,
         .dark input, .dark textarea,
         [data-theme="dark"] input, [data-theme="dark"] textarea {
@@ -98,14 +83,162 @@
             color: #9ca3af !important;
         }
         body.dark input[type="email"], body.dark input[type="password"],
-        body.dark input[type="tel"], body.dark input[type="date"], body.dark textarea,
+        body.dark input[type="tel"], body.dark input[type="date"], 
+        body.dark input[type="time"], body.dark input[type="datetime-local"],
+        body.dark textarea,
         .dark input[type="email"], .dark input[type="password"], 
-        .dark input[type="tel"], .dark input[type="date"], .dark textarea {
+        .dark input[type="tel"], .dark input[type="date"], 
+        .dark input[type="time"], .dark input[type="datetime-local"],
+        .dark textarea {
             color: #f1f5f9 !important;
             background: #1e293b !important;
             border-color: #475569 !important;
         }
         body.dark input::placeholder, .dark input::placeholder {
+            color: #64748b !important;
+        }
+        
+        /* 🆕 V4 FIX: Bütün modal input-ları dark mode-da görünür edək */
+        /* Modal içində dynamic yaradılan input-lar üçün */
+        body.dark input[type="text"], body.dark input[type="number"],
+        body.dark input[type="search"],
+        .dark input[type="text"], .dark input[type="number"],
+        .dark input[type="search"] {
+            color: #f1f5f9 !important;
+            background: #1e293b !important;
+            border-color: #475569 !important;
+        }
+        
+        /* 🆕 V4 FIX: Modal arxa fonu dark olsun */
+        body.dark .modal-card,
+        body.dark .modal > div,
+        .dark .modal-card,
+        .dark .modal > div {
+            background: #1e293b !important;
+            color: #f1f5f9 !important;
+        }
+        body.dark .modal-card h3,
+        body.dark .modal-card label,
+        body.dark .modal-card p,
+        body.dark .modal-card span:not([style*="color"]):not([class]),
+        .dark .modal-card h3,
+        .dark .modal-card label,
+        .dark .modal-card p {
+            color: #f1f5f9 !important;
+        }
+        
+        /* 🆕 V4 FIX: setting-item dark mode */
+        body.dark .setting-item,
+        .dark .setting-item {
+            background: #1e293b !important;
+            color: #f1f5f9 !important;
+            border-color: #475569 !important;
+        }
+        
+        /* 🆕 V4 FIX: Card və container-lər */
+        body.dark .card,
+        body.dark .summary-card,
+        body.dark .info-card,
+        .dark .card,
+        .dark .summary-card,
+        .dark .info-card {
+            background: #1e293b !important;
+            color: #f1f5f9 !important;
+        }
+        
+        /* 🆕 V4 FIX: Background light olan input-larda mətn QARA olsun */
+        body.dark input[style*="background:white"],
+        body.dark input[style*="background: white"],
+        body.dark input[style*="background:#fff"],
+        body.dark input[style*="background: #fff"],
+        .dark input[style*="background:white"],
+        .dark input[style*="background: white"],
+        .dark input[style*="background:#fff"],
+        .dark input[style*="background: #fff"] {
+            color: #1f2937 !important;
+        }
+        
+        /* 🆕 V5 FIX: Bütün AĞ fonlu button/div-lərdə mətn QARA olsun */
+        body.dark button[style*="background:white"],
+        body.dark button[style*="background: white"],
+        body.dark button[style*="background:#fff"],
+        body.dark button[style*="background: #fff"],
+        body.dark div[style*="background:white"],
+        body.dark div[style*="background: white"],
+        body.dark div[style*="background:#fff"],
+        body.dark div[style*="background: #fff"],
+        .dark button[style*="background:white"],
+        .dark button[style*="background: white"],
+        .dark div[style*="background:white"],
+        .dark div[style*="background: white"] {
+            color: #1f2937 !important;
+        }
+        
+        /* 🆕 V5 FIX: AĞ fonlu kontaynerlər içində h3, span, p, label da QARA */
+        body.dark div[style*="background:white"] h3,
+        body.dark div[style*="background:white"] span,
+        body.dark div[style*="background:white"] p,
+        body.dark div[style*="background:white"] label,
+        body.dark div[style*="background: white"] h3,
+        body.dark div[style*="background: white"] span,
+        body.dark div[style*="background: white"] p,
+        body.dark div[style*="background: white"] label,
+        .dark div[style*="background:white"] h3,
+        .dark div[style*="background:white"] span,
+        .dark div[style*="background:white"] p {
+            color: #1f2937 !important;
+        }
+        
+        /* 🆕 V5 FIX: Borc tipi seçimi (Alacaq/Verəcək) */
+        body.dark .type-option,
+        .dark .type-option {
+            color: #f1f5f9 !important;
+        }
+        body.dark .type-option.receivable,
+        .dark .type-option.receivable {
+            background: rgba(16, 185, 129, 0.15) !important;
+            color: #10b981 !important;
+        }
+        body.dark .type-option.payable,
+        .dark .type-option.payable {
+            background: rgba(239, 68, 68, 0.15) !important;
+            color: #ef4444 !important;
+        }
+        body.dark .type-option.selected,
+        .dark .type-option.selected {
+            box-shadow: 0 0 0 2px currentColor !important;
+        }
+        
+        /* 🆕 V5 FIX: Light yaşıl/qırmızı fonlu button-lar (Artır/Azalt) - mətn aydın */
+        body.dark button[style*="rgba(16, 185, 129"],
+        body.dark button[style*="rgba(239, 68, 68"],
+        body.dark div[style*="rgba(16, 185, 129"],
+        body.dark div[style*="rgba(239, 68, 68"],
+        .dark button[style*="rgba(16, 185, 129"],
+        .dark button[style*="rgba(239, 68, 68"] {
+            color: inherit !important;
+            font-weight: 600 !important;
+        }
+        
+        /* 🆕 V5 FIX: Borc axtarış input */
+        /* Light mode: AĞ fon, QARA mətn */
+        #debtSearchInput {
+            background: white !important;
+            color: #1f2937 !important;
+        }
+        #debtSearchInput::placeholder {
+            color: #94a3b8 !important;
+            opacity: 0.7;
+        }
+        /* Dark mode: DARK fon, AĞ mətn */
+        body.dark #debtSearchInput,
+        .dark #debtSearchInput {
+            background: #1e293b !important;
+            color: #f1f5f9 !important;
+            border-color: #475569 !important;
+        }
+        body.dark #debtSearchInput::placeholder,
+        .dark #debtSearchInput::placeholder {
             color: #64748b !important;
         }
         
@@ -143,9 +276,7 @@
         .dark .bottom-nav {
             background: #1e293b !important;
         }
-        @media (prefers-color-scheme: dark) {
-            .bottom-nav { background: #1e293b !important; }
-        }
+        /* 🛡️ V3 FIX: prefers-color-scheme SİLİNDİ - yalnız body.dark/.dark ilə nav rəngi */
         /* 🆕 Premium üçün - nav LAP ALTDA, daxili padding ilə gesture bar üçün yer */
         body.premium-user .bottom-nav {
             bottom: 0 !important;
@@ -1739,13 +1870,31 @@ body.dark select:not(.header select):not(.header-top select):not(.lang-currency 
         <div class="card">
             <div class="card-title">💱 <span data-i18n="currency_rates">Valyuta kursları</span></div>
             <div id="currencyRatesList" class="small" style="margin-bottom:12px"></div>
-            <div style="display:flex; gap:8px; flex-wrap:wrap">
-                <input type="number" id="customUSD" placeholder="USD" style="flex:1; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg)">
-                <input type="number" id="customEUR" placeholder="EUR" style="flex:1; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg)">
-                <input type="number" id="customTRY" placeholder="TRY" style="flex:1; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg)">
-                <input type="number" id="customRUB" placeholder="RUB" style="flex:1; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg)">
-                <button id="saveCustomRatesBtn" style="padding:8px 12px; border-radius:30px; background:#667eea; color:white; border:none" data-i18n="save">Tətbiq</button>
+            <div style="font-size:11px; color:var(--text-secondary); margin-bottom:8px">🔄 Valyuta seçin və məbləğ yazın — digərləri avtomatik hesablanacaq</div>
+            <div id="converterRows" style="display:flex; flex-direction:column; gap:8px">
+                <div class="conv-row" data-idx="0" style="display:flex; gap:6px; align-items:center">
+                    <select class="conv-select" style="width:110px; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg); font-size:13px"></select>
+                    <input type="number" class="conv-input" placeholder="Məbləğ" style="flex:1; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg)">
+                </div>
+                <div class="conv-row" data-idx="1" style="display:flex; gap:6px; align-items:center">
+                    <select class="conv-select" style="width:110px; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg); font-size:13px"></select>
+                    <input type="number" class="conv-input" placeholder="Məbləğ" style="flex:1; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg)">
+                </div>
+                <div class="conv-row" data-idx="2" style="display:flex; gap:6px; align-items:center">
+                    <select class="conv-select" style="width:110px; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg); font-size:13px"></select>
+                    <input type="number" class="conv-input" placeholder="Məbləğ" style="flex:1; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg)">
+                </div>
+                <div class="conv-row" data-idx="3" style="display:flex; gap:6px; align-items:center">
+                    <select class="conv-select" style="width:110px; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg); font-size:13px"></select>
+                    <input type="number" class="conv-input" placeholder="Məbləğ" style="flex:1; padding:8px; border-radius:20px; border:1px solid var(--border-color); background:var(--card-bg)">
+                </div>
             </div>
+            <button id="saveCustomRatesBtn" style="margin-top:8px; padding:8px 12px; border-radius:30px; background:#667eea; color:white; border:none; width:100%">🧹 Sıfırla</button>
+            <!-- Köhnə ID-lər saxlanır compatibility üçün (gizli) -->
+            <input type="hidden" id="customUSD">
+            <input type="hidden" id="customEUR">
+            <input type="hidden" id="customTRY">
+            <input type="hidden" id="customRUB">
         </div>
     </div>
 </div>
@@ -12544,10 +12693,12 @@ window.addEventListener('appinstalled', () => {
             const dateStr = `${dd}.${mm}.${yyyy}`;
             
             const url = `https://cbar.az/currencies/${dateStr}.xml`;
-            const ctrl = new AbortController();
-            const timeout = setTimeout(() => ctrl.abort(), 6000);
-            const res = await fetch(url, { signal: ctrl.signal });
-            clearTimeout(timeout);
+            // 🆕 BUG FIX: AbortController Capacitor WebView-də clone olunmur
+            // Promise.race istifadə edirik timeout üçün
+            const timeoutPromise = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('CBAR timeout')), 6000)
+            );
+            const res = await Promise.race([fetch(url), timeoutPromise]);
             if (!res.ok) {
                 // Bugünkü yoxdursa (həftə sonu), dünənə cəhd
                 const y = new Date(d.getTime() - 86400000);
@@ -12555,7 +12706,10 @@ window.addEventListener('appinstalled', () => {
                 const ymm = String(y.getMonth() + 1).padStart(2, '0');
                 const yyyy2 = y.getFullYear();
                 const yUrl = `https://cbar.az/currencies/${ydd}.${ymm}.${yyyy2}.xml`;
-                const yRes = await fetch(yUrl);
+                const yTimeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('CBAR timeout')), 6000)
+                );
+                const yRes = await Promise.race([fetch(yUrl), yTimeoutPromise]);
                 if (!yRes.ok) throw new Error('CBAR no data');
                 return await yRes.text();
             }
@@ -12604,10 +12758,14 @@ window.addEventListener('appinstalled', () => {
                 // Qalan valyutalar üçün open.er-api.com istifadə et
                 let openApiRates = {};
                 try {
-                    const ctrl = new AbortController();
-                    const timeout = setTimeout(() => ctrl.abort(), 6000);
-                    const res = await fetch('https://open.er-api.com/v6/latest/AZN', { signal: ctrl.signal });
-                    clearTimeout(timeout);
+                    // 🆕 BUG FIX: Promise.race istifadə edirik (Capacitor AbortSignal problemi)
+                    const timeoutPromise = new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('timeout')), 6000)
+                    );
+                    const res = await Promise.race([
+                        fetch('https://open.er-api.com/v6/latest/AZN'),
+                        timeoutPromise
+                    ]);
                     if (res.ok) {
                         const data = await res.json();
                         if (data?.rates) {
@@ -12658,10 +12816,11 @@ window.addEventListener('appinstalled', () => {
         
         for(const api of apis) {
             try {
-                const ctrl = new AbortController();
-                const timeout = setTimeout(() => ctrl.abort(), 6000);
-                const res = await fetch(api.url, { signal: ctrl.signal });
-                clearTimeout(timeout);
+                // 🆕 BUG FIX: Promise.race istifadə edirik (Capacitor AbortSignal problemi)
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('timeout')), 6000)
+                );
+                const res = await Promise.race([fetch(api.url), timeoutPromise]);
                 if(!res.ok) continue;
                 const data = await res.json();
                 const rates = api.parse(data);
@@ -14991,7 +15150,7 @@ window.addEventListener('appinstalled', () => {
     // groqChat və geminiChat function-ları proxy kimi işləyir.
     // Frontend-də key olmadığı üçün heç kim oğurlaya bilməz.
     const GEMINI_MODEL = 'gemini-flash-latest';
-    const GROQ_MODEL = 'llama-3.3-70b-versatile';
+    const GROQ_MODEL = 'openai/gpt-oss-120b';  // 🆕 Llama 3.3 70B → GPT-OSS 120B (Groq rəsmi tövsiyə, 16 Avq 2026-da köhnə söndürülür)
     
     let geminiHistory = []; // Söhbət tarixi
     let geminiRetryCount = 0; // Rate limit retry sayğacı
@@ -15007,6 +15166,10 @@ window.addEventListener('appinstalled', () => {
         const now = new Date();
         const thisMonth = now.getMonth();
         const thisYear = now.getFullYear();
+        
+        // 🆕 Cari valyuta - AI cavabında istifadə olunacaq
+        const displayCur = currentDisplayCurrency || 'AZN';
+        const conv = (amt) => fromAZN(amt, displayCur);
         
         // Bu ayın əməliyyatları
         const monthTx = (transactions || []).filter(t => {
@@ -15044,10 +15207,10 @@ window.addEventListener('appinstalled', () => {
         
         // Alacaq şəxslərin adları (mənə borclu olanlar)
         const receivablePeople = activeDebts.filter(d => d.amount > 0)
-            .map(d => `${d.name} (${d.amount.toFixed(0)} AZN${d.dueDate && new Date(d.dueDate) < now ? ', GECİKİB' : ''})`);
+            .map(d => `${d.name} (${conv(d.amount).toFixed(0)} ${displayCur}${d.dueDate && new Date(d.dueDate) < now ? ', GECİKİB' : ''})`);
         // Verəcək şəxslər/qurumlar (mən borcluyam)
         const payablePeople = activeDebts.filter(d => d.amount < 0)
-            .map(d => `${d.name} (${Math.abs(d.amount).toFixed(0)} AZN${d.dueDate && new Date(d.dueDate) < now ? ', GECİKİB' : ''})`);
+            .map(d => `${d.name} (${conv(Math.abs(d.amount)).toFixed(0)} ${displayCur}${d.dueDate && new Date(d.dueDate) < now ? ', GECİKİB' : ''})`);
         
         // 🔥 RİSKLİ KONTAKTLAR - məndən pul alıb qaytarmayan və ya gecikdirən
         // Meyarlar:
@@ -15160,27 +15323,27 @@ Sen "T$ Finance: Debt & Expense" tətbiqinin daxili ağıllı maliyyə köməkç
 İstifadəçinin cari maliyyə vəziyyəti:
 
 📅 Bu ay (${now.toLocaleDateString(getLocale(lang), {month: 'long', year: 'numeric'})}):
-- Gəlir: ${income.toFixed(2)} AZN
-- Xərc: ${expense.toFixed(2)} AZN  
-- Balans: ${net >= 0 ? '+' : ''}${net.toFixed(2)} AZN
+- Gəlir: ${conv(income).toFixed(2)} ${displayCur}
+- Xərc: ${conv(expense).toFixed(2)} ${displayCur}  
+- Balans: ${net >= 0 ? '+' : ''}${conv(net).toFixed(2)} ${displayCur}
 
-💰 ALACAQLARIM (bu şəxslər MƏNƏ borcludur, mən onlardan pul alacağam):
-${receivablePeople.length > 0 ? receivablePeople.map(p => '  • ' + p).join('\n') : '  (yoxdur)'}
-Cəmi alacaq: ${totalReceivable.toFixed(2)} AZN
+💰 RECEIVABLES (people who owe money TO ME - I will collect from them):
+${receivablePeople.length > 0 ? receivablePeople.map(p => '  • ' + p).join('\n') : '  (none)'}
+Total to receive: ${conv(totalReceivable).toFixed(2)} ${displayCur}
 
-💳 VERƏCƏKLƏRİM (MƏN bu şəxslərə/qurumlara borcluyam, mən onlara pul verəcəyəm):
-${payablePeople.length > 0 ? payablePeople.map(p => '  • ' + p).join('\n') : '  (yoxdur)'}
-Cəmi verəcək: ${totalPayable.toFixed(2)} AZN
+💳 PAYABLES (people/entities I owe money to - I must pay them):
+${payablePeople.length > 0 ? payablePeople.map(p => '  • ' + p).join('\n') : '  (none)'}
+Total to pay: ${conv(totalPayable).toFixed(2)} ${displayCur}
 
-🚨 RİSKLİ KONTAKTLAR (YALNIZ ALACAQ - bu şəxslər MƏNƏ pul borcludur, mən onlardan alacağam, amma onlar gecikir/böyük məbləğ/uzun müddətdir ödəmir):
-${riskyContacts.length > 0 ? riskyContacts.map(r => `  ⚠️ ${r.name} - ${r.amount.toFixed(0)} AZN (${r.reasons})`).join('\n') : '  (yoxdur - bütün borclar normaldır)'}
-Risk meyarları: gecikmiş ödəniş, məbləğ 500+, 60+ gündür ödənilməyən
-⚠️ DİQQƏT: VERƏCƏK (mənim borclarım) HEÇ VAXT RİSKLİ DEYİL - onlar mənim öz öhdəliyimdir, mən özüm ödəməliyəm! Riskli yalnız ALACAQ ola bilər.
+🚨 RISKY CONTACTS (RECEIVABLES only - these owe ME money but are late/large/long-overdue):
+${riskyContacts.length > 0 ? riskyContacts.map(r => `  ⚠️ ${r.name} - ${conv(r.amount).toFixed(0)} ${displayCur} (${r.reasons})`).join('\n') : '  (none - all debts normal)'}
+Risk criteria: late payment, 500+ amount, 60+ days overdue
+⚠️ NOTE: PAYABLES (my own debts) are NEVER "risky" - they are my own obligations, I pay them myself! Only RECEIVABLES can be risky.
 
-🎯 Yığım hədəfləri: ${activeGoals.length} aktiv
-${activeGoals.slice(0,3).map(g => `  • ${g.name}: ${g.currentAmount}/${g.targetAmount} AZN (${((g.currentAmount/g.targetAmount)*100).toFixed(0)}%)`).join('\n')}
+🎯 Savings goals: ${activeGoals.length} active
+${activeGoals.slice(0,3).map(g => `  • ${g.name}: ${conv(g.currentAmount).toFixed(0)}/${conv(g.targetAmount).toFixed(0)} ${displayCur} (${((g.currentAmount/g.targetAmount)*100).toFixed(0)}%)`).join('\n')}
 
-📊 Bu ay ən çox xərc: ${Object.entries(catSpending).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v]) => `${k}: ${v.toFixed(0)} AZN`).join(', ') || 'məlumat yoxdur'}
+📊 Bu ay ən çox xərc: ${Object.entries(catSpending).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v]) => `${k}: ${conv(v).toFixed(0)} ${displayCur}`).join(', ') || 'məlumat yoxdur'}
 
 ⚠️⚠️ ƏN VACİB QAYDA - DİL ⚠️⚠️
 SƏN MÜTLƏQ VƏ YALNIZ ${lang === 'az' ? 'AZƏRBAYCAN' : lang === 'ru' ? 'RUS' : lang === 'tr' ? 'TÜRK' : lang === 'ar' ? 'ƏRƏB' : lang === 'fa' ? 'FARS (فارسی)' : lang === 'uz' ? 'ÖZBƏK (latın)' : lang === 'kk' ? 'QAZAX (kiril)' : lang === 'tg' ? 'TACİK (kiril)' : lang === 'zh' ? 'ÇİN (中文)' : lang === 'es' ? 'İSPAN' : lang === 'fr' ? 'FRANSIZ' : lang === 'de' ? 'ALMAN' : lang === 'uk' ? 'UKRAYNA' : lang === 'ka' ? 'GÜRCÜ (ქართული)' : 'İNGİLİS'} DİLİNDƏ cavab verməlisən.
@@ -15737,6 +15900,11 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
     let currentLoanData = null; // Hesablanmış kredit məlumatı
     
     function openLoanCalc() {
+        // 🆕 Dinamik valyuta label yenilə
+        const labelEl = document.getElementById('loanCurrencyLabel');
+        if (labelEl) {
+            labelEl.textContent = currentDisplayCurrency || 'AZN';
+        }
         document.getElementById('loanCalcModal').style.display = 'flex';
         document.getElementById('loanResult').style.display = 'none';
     }
@@ -17333,7 +17501,21 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
             // Axtarış input handler-i quraşdır
             const searchInput = document.getElementById('debtSearchInput');
             if (searchInput) {
-                searchInput.oninput = (e) => { debtSearchQuery = e.target.value; renderDebtList(); };
+                // 🆕 BUG FIX: Debounce + cursor saxla (backspace düzgün işləsin)
+                searchInput.oninput = (e) => { 
+                    const cursorPos = e.target.selectionStart;
+                    debtSearchQuery = e.target.value;
+                    clearTimeout(window.__searchDebounce);
+                    window.__searchDebounce = setTimeout(() => {
+                        renderDebtList();
+                        // Re-render sonrası focus və cursor bərpa et
+                        const newInput = document.getElementById('debtSearchInput');
+                        if (newInput) {
+                            newInput.focus();
+                            try { newInput.setSelectionRange(cursorPos, cursorPos); } catch(e) {}
+                        }
+                    }, 200);
+                };
                 if (debtSearchQuery) searchInput.focus();
             }
             const clearBtn = document.getElementById('clearSearchBtn');
@@ -17431,16 +17613,27 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
         // 🔍 Axtarış input handler-i quraşdır
         const searchInput = document.getElementById('debtSearchInput');
         if (searchInput) {
+            // 🆕 BUG FIX: Debounce + cursor saxla (backspace düzgün işləsin)
             searchInput.oninput = (e) => { 
-                debtSearchQuery = e.target.value; 
-                renderDebtList(); 
+                const cursorPos = e.target.selectionStart;
+                debtSearchQuery = e.target.value;
+                clearTimeout(window.__searchDebounce);
+                window.__searchDebounce = setTimeout(() => {
+                    renderDebtList();
+                    // Re-render sonrası focus və cursor bərpa et
+                    const newInput = document.getElementById('debtSearchInput');
+                    if (newInput) {
+                        newInput.focus();
+                        try { newInput.setSelectionRange(cursorPos, cursorPos); } catch(e) {}
+                    }
+                }, 200);
             };
             // Focus saxla əgər istifadəçi yazırdı
             if (debtSearchQuery) {
                 searchInput.focus();
                 // Cursor sonda olsun
                 const len = searchInput.value.length;
-                searchInput.setSelectionRange(len, len);
+                try { searchInput.setSelectionRange(len, len); } catch(e) {}
             }
         }
         const clearBtn = document.getElementById('clearSearchBtn');
@@ -19051,20 +19244,117 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
         openExportModal('📊 CSV Export', csv, `tswallet_data_${Date.now()}.csv`);
     };
     
-    // ========== CUSTOM RATES ==========
+    // ========== 💱 DYNAMIC CURRENCY CONVERTER ==========
+    // Hər sətrdə valyuta seçilə bilər (50 valyuta)
+    // Bir input dəyişəndə - digərləri avtomatik hesablanır
+    const converterState = ['USD', 'EUR', 'TRY', 'RUB']; // default valyutalar (idx: 0-3)
+    
+    function setupCurrencyConverter() {
+        const rows = document.querySelectorAll('.conv-row');
+        if (!rows.length) return;
+        
+        // Bütün valyutalar (currencyInfo-dan)
+        const allCurrencies = Object.keys(currencyInfo);
+        
+        // Popular currencies yuxarıda göstər
+        const popular = ['USD', 'EUR', 'GBP', 'AZN', 'TRY', 'RUB', 'SAR', 'AED', 'GEL', 'CNY', 'JPY'];
+        const others = allCurrencies.filter(c => !popular.includes(c)).sort();
+        const sortedCurrencies = [...popular.filter(c => allCurrencies.includes(c)), ...others];
+        
+        rows.forEach((row, idx) => {
+            const select = row.querySelector('.conv-select');
+            const input = row.querySelector('.conv-input');
+            if (!select || !input) return;
+            
+            // Populate select
+            select.innerHTML = '';
+            sortedCurrencies.forEach(cur => {
+                const info = currencyInfo[cur];
+                if (!info) return;
+                const opt = document.createElement('option');
+                opt.value = cur;
+                opt.textContent = `${info.flag || ''} ${cur}`;
+                if (cur === converterState[idx]) opt.selected = true;
+                select.appendChild(opt);
+            });
+            
+            // Update placeholder
+            input.placeholder = converterState[idx];
+            
+            // Input listener - live conversion
+            input.addEventListener('input', (e) => {
+                const val = parseFloat(e.target.value);
+                if (isNaN(val) || val <= 0) {
+                    clearOtherConverters(idx);
+                    return;
+                }
+                convertFromRow(idx, val);
+            });
+            
+            // Select change - valyuta dəyişdirmə
+            select.addEventListener('change', (e) => {
+                converterState[idx] = e.target.value;
+                input.placeholder = e.target.value;
+                
+                // Re-convert - əgər başqa row-da dəyər varsa
+                const activeRow = findActiveRow();
+                if (activeRow.idx !== -1 && activeRow.idx !== idx) {
+                    convertFromRow(activeRow.idx, activeRow.val);
+                } else if (input.value) {
+                    // Öz row-da dəyər var - digərlərini yenilə
+                    const val = parseFloat(input.value);
+                    if (!isNaN(val) && val > 0) {
+                        convertFromRow(idx, val);
+                    }
+                }
+                haptic(5);
+            });
+        });
+    }
+    
+    function findActiveRow() {
+        const inputs = document.querySelectorAll('.conv-input');
+        for (let i = 0; i < inputs.length; i++) {
+            const val = parseFloat(inputs[i].value);
+            if (!isNaN(val) && val > 0) return { idx: i, val: val };
+        }
+        return { idx: -1, val: 0 };
+    }
+    
+    function convertFromRow(sourceIdx, value) {
+        const sourceCur = converterState[sourceIdx];
+        const sourceRate = exchangeRates[sourceCur];
+        if (!sourceRate) return;
+        
+        // AZN-ə çevir
+        const aznValue = value * sourceRate;
+        
+        // Digər row-ları yenilə
+        const inputs = document.querySelectorAll('.conv-input');
+        inputs.forEach((inp, idx) => {
+            if (idx === sourceIdx) return;
+            const targetCur = converterState[idx];
+            const targetRate = exchangeRates[targetCur];
+            if (targetRate && targetRate > 0) {
+                const converted = aznValue / targetRate;
+                inp.value = converted.toFixed(2);
+            }
+        });
+    }
+    
+    function clearOtherConverters(sourceIdx) {
+        const inputs = document.querySelectorAll('.conv-input');
+        inputs.forEach((inp, idx) => {
+            if (idx !== sourceIdx) inp.value = '';
+        });
+    }
+    
+    setupCurrencyConverter();
+    
+    // ========== CLEAR CONVERTER (Sıfırla düyməsi) ==========
     document.getElementById('saveCustomRatesBtn').onclick = () => { 
-        let u = parseFloat(document.getElementById('customUSD').value); 
-        if(u > 0) exchangeRates.USD = 1 / u; 
-        let e = parseFloat(document.getElementById('customEUR').value); 
-        if(e > 0) exchangeRates.EUR = 1 / e; 
-        let t = parseFloat(document.getElementById('customTRY').value); 
-        if(t > 0) exchangeRates.TRY = 1 / t; 
-        let r = parseFloat(document.getElementById('customRUB').value); 
-        if(r > 0) exchangeRates.RUB = 1 / r; 
-        localStorage.setItem('exchangeRates', JSON.stringify(exchangeRates)); 
-        updateRateDisplay(); 
-        renderAll(); 
-        customAlert(tt('msg_rates_updated')); 
+        document.querySelectorAll('.conv-input').forEach(inp => inp.value = '');
+        haptic(8);
     };
     
     // ========== EVENT LISTENERS ==========
@@ -19804,6 +20094,10 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
             const daysBack = options.dateRange === 'all' ? null : parseInt(options.dateRange);
             const cutoffDate = daysBack ? Date.now() - (daysBack * 86400000) : 0;
             
+            // 🆕 PDF-də DISPLAY CURRENCY istifadə et (hər şey eyni valyutada)
+            const pdfCur = currentDisplayCurrency || 'AZN';
+            const pdfConv = (aznAmt) => fromAZN(aznAmt, pdfCur);
+            
             // ==== Məlumat hazırla ====
             const activeDebts = debts.filter(d => d.status === 'active');
             const totalReceivable = activeDebts.filter(d => d.amount > 0).reduce((s, d) => s + d.amount, 0);
@@ -19878,15 +20172,15 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
     <div class="summary">
         <div class="summary-box receivable">
             <div class="summary-label">${escapeHtml(tt('pdf_receivable'))}</div>
-            <div class="summary-amount">+${formatMoneyPlain(totalReceivable)}</div>
+            <div class="summary-amount">+${formatMoneyPlain(pdfConv(totalReceivable))} ${escapeHtml(pdfCur)}</div>
         </div>
         <div class="summary-box payable">
             <div class="summary-label">${escapeHtml(tt('pdf_payable'))}</div>
-            <div class="summary-amount">${formatMoneyPlain(totalPayable)}</div>
+            <div class="summary-amount">${formatMoneyPlain(pdfConv(totalPayable))} ${escapeHtml(pdfCur)}</div>
         </div>
         <div class="summary-box net">
             <div class="summary-label">${escapeHtml(tt('pdf_net'))}</div>
-            <div class="summary-amount">${netAmount >= 0 ? '+' : ''}${formatMoneyPlain(netAmount)}</div>
+            <div class="summary-amount">${netAmount >= 0 ? '+' : ''}${formatMoneyPlain(pdfConv(netAmount))} ${escapeHtml(pdfCur)}</div>
         </div>
     </div>
                 `;
@@ -19919,7 +20213,7 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
                 <td>${escapeHtml(d.name || '?')}</td>
                 <td>${escapeHtml(dt)}</td>
                 <td>${escapeHtml(due)}</td>
-                <td class="${cls}">${sign}${formatMoneyPlain(d.amount)} ${escapeHtml(d.currency || 'AZN')}</td>
+                <td class="${cls}">${sign}${formatMoneyPlain(pdfConv(d.amount))} ${escapeHtml(pdfCur)}</td>
             </tr>
                         `;
                     });
@@ -19957,7 +20251,7 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
                 <td>${escapeHtml(d.name || '?')}</td>
                 <td>${escapeHtml(dt)}</td>
                 <td>${escapeHtml(status)}</td>
-                <td class="${cls}">${sign}${formatMoneyPlain(origAmount)} ${escapeHtml(d.currency || 'AZN')}</td>
+                <td class="${cls}">${sign}${formatMoneyPlain(pdfConv(d.amount))} ${escapeHtml(pdfCur)}</td>
             </tr>
                         `;
                     });
@@ -19996,15 +20290,15 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
     <div class="summary" style="margin-bottom:16px">
         <div class="summary-box receivable">
             <div class="summary-label">${escapeHtml(tt('income') || 'Gəlir')}</div>
-            <div class="summary-amount">+${formatMoneyPlain(totalIncome)} AZN</div>
+            <div class="summary-amount">+${formatMoneyPlain(pdfConv(totalIncome))} ${escapeHtml(pdfCur)}</div>
         </div>
         <div class="summary-box payable">
             <div class="summary-label">${escapeHtml(tt('expense') || 'Xərc')}</div>
-            <div class="summary-amount">-${formatMoneyPlain(totalExpense)} AZN</div>
+            <div class="summary-amount">-${formatMoneyPlain(pdfConv(totalExpense))} ${escapeHtml(pdfCur)}</div>
         </div>
         <div class="summary-box net">
             <div class="summary-label">${escapeHtml(tt('net') || 'Xalis')}</div>
-            <div class="summary-amount">${(totalIncome - totalExpense) >= 0 ? '+' : ''}${formatMoneyPlain(totalIncome - totalExpense)} AZN</div>
+            <div class="summary-amount">${(totalIncome - totalExpense) >= 0 ? '+' : ''}${formatMoneyPlain(pdfConv(totalIncome - totalExpense))} ${escapeHtml(pdfCur)}</div>
         </div>
     </div>
     <table>
@@ -20042,7 +20336,7 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
                 <td>${escapeHtml(typeLabel)}</td>
                 <td>${escapeHtml(cat)}</td>
                 <td>${escapeHtml(note)}</td>
-                <td class="${cls}">${sign}${formatMoneyPlain(t.amount || 0)} ${escapeHtml(curr)}</td>
+                <td class="${cls}">${sign}${formatMoneyPlain(pdfConv(t.amount || 0))} ${escapeHtml(pdfCur)}</td>
             </tr>
                         `;
                     });
@@ -21551,7 +21845,7 @@ UNUTMA: Cavabın 100% ${lang === 'az' ? 'Azərbaycan' : lang === 'ru' ? 'Rus' : 
     });
     window.addEventListener('beforeunload', stopBackgroundTasks);
 
-    // 🌙 AVTOMATİK GECƏ REJİMİ - 20:00 dark, 08:00 light
+    // 🌙 AVTOMATİK GECƏ REJİMİ - 20:00 dark, 08:00 light (DEFAULT ON)
     function applyAutoTheme() {
         const autoEnabled = localStorage.getItem('themeAutoMode') !== 'false';  // default ON
         if (!autoEnabled) return;
