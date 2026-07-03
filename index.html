@@ -2662,7 +2662,9 @@ body.dark select:not(.header select):not(.header-top select):not(.lang-currency 
 
 <script>
 // 🚀 Service Worker Registration (PWA - Offline dəstəyi)
-if ('serviceWorker' in navigator) {
+// 🆕 FIX: Capacitor Android-də LAZIM DEYİL (native offline dəstəyi var)
+// Web-də isə fayl yoxdursa səssiz keç
+if ('serviceWorker' in navigator && !window.Capacitor && location.protocol === 'https:') {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js')
             .then(registration => {
@@ -2675,14 +2677,13 @@ if ('serviceWorker' in navigator) {
                         newWorker.addEventListener('statechange', () => {
                             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                                 console.log('🆕 Yeni versiya hazırdır! Tətbiqi yeniləyin.');
-                                // İstifadəçi yenidən tətbiqi açanda yeni versiya işləyəcək
                             }
                         });
                     }
                 });
             })
-            .catch(err => {
-                console.warn('⚠️ Service Worker register oluna bilmədi:', err);
+            .catch(() => {
+                // Səssiz keç - Service Worker fayl yoxdursa problem deyil
             });
     });
 }
